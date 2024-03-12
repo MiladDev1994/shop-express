@@ -4,7 +4,7 @@ const schema = new Schema({
     first_name: {type: String},
     last_name: {type: String},
     username: {type: String, lowercase: true},
-    phone: {type: String},
+    mobile: {type: String, required: true},
     email: {type: String, lowercase: true},
     password: {type: String},
     otp: {type: Object, default: {

@@ -4,6 +4,7 @@ const path = require("path");
 const { AllRoutes } = require("./router/router");
 const morgan = require("morgan");
 const createHttpError = require("http-errors")
+const cors = require('cors')
 
 class Application {
     #app = express();
@@ -20,6 +21,7 @@ class Application {
     }
 
     async configApplication() {
+        this.#app.use(cors())
         this.#app.use(morgan("dev"))
         this.#app.use(express.json())
         this.#app.use(express.urlencoded({extended: true}))
