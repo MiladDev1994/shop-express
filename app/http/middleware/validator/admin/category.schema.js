@@ -6,6 +6,11 @@ const addCategorySchema = new joi.object({
     parent: joi.string().pattern(MONGO_ID_PATTERN).allow(null).error(new Error("parent is false"))
 })
 
+const updateCategorySchema = new joi.object({
+    title: joi.string().min(3).max(30).trim().error(new Error("title is false")),
+})
+
 module.exports = {
     addCategorySchema,
+    updateCategorySchema,
 }
