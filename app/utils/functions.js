@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const createHttpError = require("http-errors");
 const JWT = require("jsonwebtoken");
 const { UserModel } = require("../models/users");
@@ -15,7 +17,7 @@ function SignAccessToken(userId) {
             id: user._id,
         };
         const option = {
-            expiresIn: "1h"
+            expiresIn: "1w"
         };
     
         JWT.sign(payload, ACCESS_TOKEN_SECRET_KEY, option, (err, token) => {
@@ -58,9 +60,15 @@ function VerifyRefreshToken(token) {
     })
 }
 
+function deleteFileInPublic(fileAddress) {
+    const filePath = path.join(__dirname, "..", "..", "public", fileAddress);
+    fs.unlinkSync(filePath)
+}
+
 module.exports = {
     RandomNumberGenerator,
     SignAccessToken,
     SignRefreshToken,
-    VerifyRefreshToken
+    VerifyRefreshToken,
+    deleteFileInPublic
 }

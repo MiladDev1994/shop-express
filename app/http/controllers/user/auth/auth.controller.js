@@ -65,9 +65,9 @@ class UserController extends Controller {
             code,
             expiresIn: new Date().getTime() + 120000
         }
-        const result = this.checkExistUser(mobile);
+        const result = await this.checkExistUser(mobile);
         if (result) {
-            this.updateUser(mobile, {otp})
+            return this.updateUser(mobile, {otp})
         } 
         const createUser = await UserModel.create({
             mobile, 

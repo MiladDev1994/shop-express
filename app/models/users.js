@@ -15,6 +15,12 @@ const schema = new Schema({
     discount: {type: Number, default: 0},
     birthday: {type: String},
     roles: {type: [String], default: ["USER"]},
+}, {
+    timestamps: true, 
+    toJSON: {
+        virtuals: true,
+    },
+    versionKey: false,
 })
 
 module.exports = {
