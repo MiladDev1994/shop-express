@@ -21,7 +21,12 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         const ext = path.extname(file.originalname);
         const fileName = new Date().getTime() + ext
-        req.body.fileName = fileName
+        if (req.body.fileName) {
+            if (typeof req.body.fileName == "string") req.body.fileName = [req.body.fileName, fileName]
+            else req.body.fileName.push(fileName)
+        } else {
+            req.body.fileName = fileName
+        }
         cb(null, fileName)
     }
 })

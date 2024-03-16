@@ -61,8 +61,15 @@ function VerifyRefreshToken(token) {
 }
 
 function deleteFileInPublic(fileAddress) {
-    const filePath = path.join(__dirname, "..", "..", "public", fileAddress);
-    fs.unlinkSync(filePath)
+    if (typeof fileAddress == "string") {
+        const filePath = path.join(__dirname, "..", "..", "public", fileAddress);
+        fs.unlinkSync(filePath)
+    } else {
+        fileAddress.forEach(element => {
+            const filePath = path.join(__dirname, "..", "..", "public", element);
+            fs.unlinkSync(filePath)
+        });
+    }
 }
 
 module.exports = {
