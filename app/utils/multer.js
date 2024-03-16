@@ -38,10 +38,22 @@ function fileFilter(req, file, cb) {
     return cb(null, true)
 }
 
+function videoFilter(req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const fileFormat = [".mp4", ".mkv"]
+    if (!fileFormat.includes(ext)) return cb(createHttpError.BadRequest("file format is false"))
+    return cb(null, true)
+}
+
 const fileUpload = multer({storage, fileFilter, limits: {
-    fileSize: 6889
+    fileSize: 1 * 1000 * 1000 // 1MB
+}});
+
+const videoUpload = multer({storage, videoFilter, limits: {
+    fileSize: 300 * 1000 * 1000 // 300MB
 }});
 
 module.exports = {
-    fileUpload
+    fileUpload,
+    videoUpload
 }
